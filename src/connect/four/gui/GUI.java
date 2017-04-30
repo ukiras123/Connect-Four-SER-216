@@ -130,6 +130,11 @@ public class GUI extends javax.swing.JFrame {
 	}
 	
 	void addGameOver(){
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		remove(gamePanel);
 		System.out.println("New Game Over Panel added");
 		gameOverPanel = new GameOverPanel(this, winner);
