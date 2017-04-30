@@ -29,16 +29,16 @@ public class Game implements ScoreChart {
         int first = (new Random()).nextInt(m_players.length);
         performPlay(first);
     }
-    @Override public void registerListener(ScoreChart.Listener l) {
+    public void registerListener(ScoreChart.Listener l) {
         m_listeners.add(l);
     }
-    @Override public void unregisterListener(ScoreChart.Listener l) {
+    public void unregisterListener(ScoreChart.Listener l) {
         m_listeners.remove(l);
     }
-    @Override public List<Player> getPlayers() {
+    public List<Player> getPlayers() {
         return Arrays.asList(m_players);
     }
-    @Override public int getScore(Player p) {
+    public int getScore(Player p) {
         int pos = -1;
         int l = m_players.length;
         for (int i = 0; i != l; ++i) {
@@ -50,10 +50,10 @@ public class Game implements ScoreChart {
         m_currentPlayer = player;
         ReadWritableBoard controlledBoard = new ReadWritableBoard() {
             boolean played;
-            @Override public Player whoPlayed(int x, int y) {
+            public Player whoPlayed(int x, int y) {
                 return m_board.whoPlayed(x, y);
             }
-            @Override public void play(int x, Player p) {
+            public void play(int x, Player p) {
                 if (played) {
                     throw new Error(p+" Played more than once in a turn.");
                 }
@@ -77,19 +77,19 @@ public class Game implements ScoreChart {
                     performPlay((player+1) % m_players.length);
                 }
             }
-            @Override public void clear() {
+            public void clear() {
                 m_board.clear();
             }
-            @Override public int getWidth() {
+            public int getWidth() {
                 return m_board.getWidth();
             }
-            @Override public int getHeight() {
+            public int getHeight() {
                 return m_board.getHeight();
             }
-	    @Override public int getColumnHeight(int x) {
+	    public int getColumnHeight(int x) {
 		return m_board.getColumnHeight(x);
 	    }
-	    @Override public int getMoveCount() {
+	    public int getMoveCount() {
 		return m_board.getMoveCount();
 	    }
         };

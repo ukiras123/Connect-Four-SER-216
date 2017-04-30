@@ -25,12 +25,10 @@ public class GUIWrapperPlayer implements Player {
 	
 	
 	
-	@Override
 	public String getName() {
 		return player.getName();
 	}
 
-	@Override
 	public void performPlay(final ReadWritableBoard board) {
 		
 		this.board = board;
@@ -42,12 +40,10 @@ public class GUIWrapperPlayer implements Player {
 				return board.whoPlayed(x, y);
 			}
 			
-			@Override
 			public void play(final int x, Player p) {
 				
 				
 				java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
 			public void run() {
 					gpGUI.calcWidth(x);
 					gpGUI.turn();
@@ -65,17 +61,14 @@ public class GUIWrapperPlayer implements Player {
 				return board.getHeight();
 			}
 
-			@Override
 			public int getColumnHeight(int x) {
 				return board.getColumnHeight(x);
 			}
 
-			@Override
 			public int getMoveCount() {
 				return board.getMoveCount();
 			}
 
-			@Override
 			public void clear() {
 				board.clear(); 
 			}

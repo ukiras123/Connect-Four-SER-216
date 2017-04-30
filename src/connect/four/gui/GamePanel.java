@@ -378,8 +378,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 		pieces[turnNum].setVisible(true);
 		Timer timer = new Timer((8000/(destination)), new ActionListener() 
 		{
-		    @Override
-                    public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 			int x = pieces[turnNum].getX();
 			int y = pieces[turnNum].getY();
 			int startY = y;
@@ -631,7 +630,6 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 	}
 	
 	//GAME OVER
-	@Override
 	public void gameOver(Player winner, ScoreChart scores, ReadableBoard end) {
 		if(turnNum < 41){
 			if(game.getCurrentPlayer() == players[0]){
@@ -670,7 +668,6 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 		final GUIPiece cP = currentPiece;
 		topGlass.add(cP);
 		Timer timer = new Timer(100, new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				long tick = GLOW_START_TIME - System.currentTimeMillis();
 				tick = (-1*tick/100);

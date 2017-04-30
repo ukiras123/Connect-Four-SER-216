@@ -16,7 +16,6 @@ public class ConsolePlayer implements Player, ScoreChart.Listener {
 		m_name = name;
 	}
 
-	@Override
 	public String getName() {
 		return m_name;
 	}
@@ -25,7 +24,6 @@ public class ConsolePlayer implements Player, ScoreChart.Listener {
 		this.m_name = m_name;
 	}
 
-	@Override
 	public void gameOver(Player winner, ScoreChart scores, ReadableBoard board) {
 		System.out.println("|------------------------|");
 		System.out.println("  "+ m_name + (winner == this ? " won." : " lost."));
@@ -34,7 +32,6 @@ public class ConsolePlayer implements Player, ScoreChart.Listener {
 		System.out.println("|------------------------|");
 	}
 
-	@Override
 	public void performPlay(ReadWritableBoard board) {
 		int width = board.getWidth();
 		int height = board.getHeight();

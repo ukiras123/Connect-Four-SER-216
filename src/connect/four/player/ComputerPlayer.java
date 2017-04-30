@@ -17,11 +17,11 @@ public class ComputerPlayer implements Player {
     public ComputerPlayer(int depth) {
         m_depth = depth;
     }
-    @Override public String getName() {
+    public String getName() {
         return "Computer";
     }
 
-    @Override public void performPlay(ReadWritableBoard board) {
+    public void performPlay(ReadWritableBoard board) {
         int l = board.getWidth();
 	int m = board.getHeight();
         if (board.getMoveCount() == 0) {

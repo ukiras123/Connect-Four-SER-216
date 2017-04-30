@@ -36,19 +36,19 @@ public class Board implements ReadWritableBoard {
 		}
 	}
 
-	public @Override Player whoPlayed(int x, int y) {
+	public Player whoPlayed(int x, int y) {
 		return m_contents[x][y];
 	}
 
-	public @Override int getWidth() {
+	public int getWidth() {
 		return m_contents.length;
 	}
 
-	public @Override int getHeight() {
+	public int getHeight() {
 		return m_contents[0].length;
 	}
 
-	public @Override void play(int x, Player p) {
+	public void play(int x, Player p) {
 		int y = getColumnHeight(x);
 		if (y == m_contents[x].length) {
 			throw new ColumnFullException();
@@ -57,7 +57,7 @@ public class Board implements ReadWritableBoard {
 		m_moveCount += 1;
 	}
 
-	public @Override int getColumnHeight(int x) {
+	public int getColumnHeight(int x) {
 		int y = 0;
 		int l = m_contents[0].length;
 		while (y != l && m_contents[x][y] != null) {
@@ -66,7 +66,7 @@ public class Board implements ReadWritableBoard {
 		return y;
 	}
 
-	public @Override void clear() {
+	public void clear() {
 		int l = m_contents.length;
 		int m = m_contents[0].length;
 		for (int i = 0; i != l; ++i) {
@@ -75,7 +75,7 @@ public class Board implements ReadWritableBoard {
 		m_moveCount = 0;
 	}
 
-	public @Override int getMoveCount() {
+	public int getMoveCount() {
 		return m_moveCount;
 	}
 }
