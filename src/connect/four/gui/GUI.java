@@ -6,11 +6,7 @@
 
 package connect.four.gui;
 
-import connect.four.*;
-import connect.four.board.*;
-import connect.four.player.*;
-
-
+@SuppressWarnings("serial")
 public class GUI extends javax.swing.JFrame {
 
 	MainMenuPanel mainMenu;
@@ -32,7 +28,6 @@ public class GUI extends javax.swing.JFrame {
 	}
 
 	
-	@SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
         private void initComponents() {
 

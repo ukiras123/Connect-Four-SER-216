@@ -6,7 +6,6 @@
 
 package connect.four.gui;
 
-import connect.four.board.Board;
 import connect.four.board.ReadWritableBoard;
 import connect.four.player.Player;
 

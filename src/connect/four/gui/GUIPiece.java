@@ -6,12 +6,11 @@
 
 package connect.four.gui;
 
-import static connect.four.gui.GamePanel.PLAY_TIME;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 
+@SuppressWarnings("serial")
 public class GUIPiece extends JLabel{
 	
 	int glowNum;
