@@ -27,9 +27,11 @@ public class ConsolePlayer implements Player, ScoreChart.Listener {
 
 	@Override
 	public void gameOver(Player winner, ScoreChart scores, ReadableBoard board) {
-		System.out.println(m_name + (winner == this ? " won." : " lost."));
+		System.out.println("|------------------------|");
+		System.out.println("  "+ m_name + (winner == this ? " won." : " lost."));
 		//dumpBoard(board);
-		System.out.println(m_name + ": " + scores.getScore(this));
+		System.out.println("  "+ m_name + ": " + scores.getScore(this));
+		System.out.println("|------------------------|");
 	}
 
 	@Override
