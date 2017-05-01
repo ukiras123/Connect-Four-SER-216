@@ -6,9 +6,11 @@ import java.util.Random;
 
 
 public class RandomPlayer implements Player {
+    @Override
     public String getName() {
         return "Computer";
     }
+    @Override
     public void performPlay(ReadWritableBoard board) {
 	int width = board.getWidth();
 	int height = board.getHeight();

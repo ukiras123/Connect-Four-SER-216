@@ -21,11 +21,11 @@ public class GUIPlayer implements Player {
 		gpGUI = gp;
 	}
 	
-	public String getName(){
+	@Override public String getName(){
 		return m_name;
 	}
 	
-	public void performPlay(ReadWritableBoard board) {
+	@Override public void performPlay(ReadWritableBoard board) {
 		this.board = board;
 		
 		
