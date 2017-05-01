@@ -3,7 +3,6 @@
 package connect.four.gui;
 
 
-@SuppressWarnings("serial")
 public class GameOverPanel extends javax.swing.JPanel {
 
 	GUI gui;
@@ -20,6 +19,7 @@ public class GameOverPanel extends javax.swing.JPanel {
 	
 
 	
+	@SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
         private void initComponents() {
 

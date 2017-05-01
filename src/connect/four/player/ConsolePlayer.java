@@ -1,13 +1,13 @@
 
 package connect.four.player;
 
+import connect.four.board.ReadableBoard;
+import connect.four.board.ReadWritableBoard;
+import connect.four.Game;
+import connect.four.ScoreChart;
+import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-
-import connect.four.ScoreChart;
-import connect.four.board.ReadWritableBoard;
-import connect.four.board.ReadableBoard;
 
 public class ConsolePlayer implements Player, ScoreChart.Listener {
 	String m_name;
