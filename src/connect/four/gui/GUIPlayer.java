@@ -12,17 +12,17 @@ import connect.four.player.Player;
 
 
 public class GUIPlayer implements Player {
-	private String m_name;
-	GamePanel gpGUI;
-	ReadWritableBoard board;
+	private String playerName;
+	private GamePanel gpGUI;
+	private ReadWritableBoard board;
 	
 	public GUIPlayer(String name, GamePanel gp){
-		m_name = name;
+		playerName = name;
 		gpGUI = gp;
 	}
 	
 	@Override public String getName(){
-		return m_name;
+		return playerName;
 	}
 	
 	@Override public void performPlay(ReadWritableBoard board) {

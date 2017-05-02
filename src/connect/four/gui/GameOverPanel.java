@@ -6,6 +6,11 @@ package connect.four.gui;
 public class GameOverPanel extends javax.swing.JPanel {
 
 	GUI gui;
+    private javax.swing.JButton butMainMenu;
+    private javax.swing.JButton butPlayAgain;
+    private javax.swing.JLabel labelGameOVer;
+    private javax.swing.JLabel winner;
+    private javax.swing.JLabel winnerDisplay;
 	
 	public GameOverPanel(GUI gui, String winner) {
 		initComponents();
@@ -62,62 +67,102 @@ public class GameOverPanel extends javax.swing.JPanel {
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
                 layout.setHorizontalGroup(
-                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(499, 499, 499)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(winner)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(winnerDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                .addComponent(butPlayAgain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                .addComponent(labelGameOVer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(551, 551, 551)
-                                                .addComponent(butMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(429, Short.MAX_VALUE))
+                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).
+                        addGroup(layout.createSequentialGroup().
+                                addGroup(layout.createParallelGroup(
+                                		javax.swing.GroupLayout.Alignment.LEADING).
+                                        addGroup(layout.createSequentialGroup().
+                                                addGap(499, 499, 499).
+                                                addGroup(layout.createParallelGroup(
+                                                		javax.swing.GroupLayout.
+                                                		Alignment.LEADING).
+                                                        addGroup(layout.createSequentialGroup().
+                                                                addComponent(winner).
+                                                                addPreferredGap(javax.swing.
+                                                                		LayoutStyle.
+                                                                		ComponentPlacement.
+                                                                		RELATED).
+                                                                addComponent(winnerDisplay,
+                                                                		javax.swing.
+                                                                		GroupLayout.
+                                                                		PREFERRED_SIZE,
+                                                                		257, 
+                                                                		javax.swing.
+                                                                		GroupLayout.
+                                                                		PREFERRED_SIZE)).
+                                                        addGroup(layout.
+                                                        		createParallelGroup(
+                                                        				javax.swing.
+                                                        				GroupLayout.
+                                                        				Alignment.
+                                                        				LEADING,
+                                                        				false).
+                                                                addComponent(
+                                                                		butPlayAgain, 
+                                                                		javax.swing.
+                                                                		GroupLayout.
+                                                                		DEFAULT_SIZE,
+                                                                		javax.swing.
+                                                                		GroupLayout.
+                                                                		DEFAULT_SIZE, 
+                                                                		Short.MAX_VALUE).
+                                                                addComponent(
+                                                                		labelGameOVer, 
+                                                                		javax.swing.
+                                                                		GroupLayout.
+                                                                		DEFAULT_SIZE, 
+                                                                		javax.swing.
+                                                                		GroupLayout.
+                                                                		DEFAULT_SIZE, 
+                                                                		Short.MAX_VALUE)))).
+                                        addGroup(layout.createSequentialGroup().
+                                               addGap(551, 551, 551).
+                                               addComponent(butMainMenu, 
+                                            		   javax.swing.GroupLayout.PREFERRED_SIZE,
+                                            		   169, javax.swing.
+                                            		   GroupLayout.PREFERRED_SIZE))).
+                                addContainerGap(429, Short.MAX_VALUE))
                 );
                 layout.setVerticalGroup(
-                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(145, 145, 145)
-                                .addComponent(labelGameOVer)
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(winnerDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(winner, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(63, 63, 63)
-                                .addComponent(butPlayAgain, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(butMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(304, Short.MAX_VALUE))
+                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).
+                        addGroup(layout.createSequentialGroup().
+                                addGap(145, 145, 145).
+                                addComponent(labelGameOVer).
+                                addGap(43, 43, 43).
+                                addGroup(layout.createParallelGroup(
+                                		javax.swing.GroupLayout.Alignment.BASELINE).
+                                        addComponent(winnerDisplay, 
+                                        		javax.swing.GroupLayout.PREFERRED_SIZE, 
+                                        		31, javax.swing.GroupLayout.PREFERRED_SIZE).
+                                        addComponent(winner, 
+                                        		javax.swing.GroupLayout.PREFERRED_SIZE, 31, 
+                                        		javax.swing.GroupLayout.PREFERRED_SIZE)).
+                                addGap(63, 63, 63).
+                                addComponent(butPlayAgain,
+                                		javax.swing.GroupLayout.PREFERRED_SIZE, 61, 
+                                		javax.swing.GroupLayout.PREFERRED_SIZE).
+                                addGap(37, 37, 37).
+                                addComponent(butMainMenu, 
+                                		javax.swing.GroupLayout.PREFERRED_SIZE, 58, 
+                                		javax.swing.GroupLayout.PREFERRED_SIZE).
+                                addContainerGap(304, Short.MAX_VALUE))
                 );
         }// </editor-fold>//GEN-END:initComponents
 
-        private void butPlayAgainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butPlayAgainActionPerformed
-                
-		gui.remove(this);
-		gui.addGamePanel();
-		gui.revalidate();
-		gui.repaint();
+        private void butPlayAgainActionPerformed(java.awt.event.ActionEvent evt) {
+        	//GEN-FIRST:event_butPlayAgainActionPerformed   
+        	gui.remove(this);
+        	gui.addGamePanel();
+        	gui.revalidate();
+        	gui.repaint();
         }//GEN-LAST:event_butPlayAgainActionPerformed
 
-        private void butMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butMainMenuActionPerformed
-		gui.remove(this);
-		gui.addMainMenu();
-		gui.revalidate();
-		gui.repaint();
+        private void butMainMenuActionPerformed(java.awt.event.ActionEvent evt) {
+        	//GEN-FIRST:event_butMainMenuActionPerformed
+        	gui.remove(this);
+        	gui.addMainMenu();
+        	gui.revalidate();
+        	gui.repaint();
         }//GEN-LAST:event_butMainMenuActionPerformed
 
-
-        // Variables declaration - do not modify//GEN-BEGIN:variables
-        private javax.swing.JButton butMainMenu;
-        private javax.swing.JButton butPlayAgain;
-        private javax.swing.JLabel labelGameOVer;
-        private javax.swing.JLabel winner;
-        private javax.swing.JLabel winnerDisplay;
-        // End of variables declaration//GEN-END:variables
 }

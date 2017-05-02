@@ -10,62 +10,68 @@ import java.util.Random;
 
 
 public class ComputerPlayer implements Player {
-    int m_depth;
+    int cpDepth;
     public ComputerPlayer() {
-        m_depth = 6;
+        cpDepth = 6;
     }
     public ComputerPlayer(int depth) {
-        m_depth = depth;
+        cpDepth = depth;
     }
     @Override public String getName() {
         return "Computer";
     }
 
     @Override public void performPlay(ReadWritableBoard board) {
-        int l = board.getWidth();
-	int m = board.getHeight();
+        int width = board.getWidth();
+        int height = board.getHeight();
         if (board.getMoveCount() == 0) {
-            board.play((new Random()).nextInt(l), this);
+            board.play((new Random()).nextInt(width), this);
         } else {
             Player opponent = getOpponent(board);
-            int maxMove = (new Random()).nextInt(l);
-            long maxScore = scoreMove(maxMove, m_depth, board, opponent);
-            long[] scores = new long[l];
-            for (int i = 0; i != l; ++i) {
-                if (board.whoPlayed(i, m-1) != null) continue;
-                long iScore = scoreMove(i, m_depth, board, opponent);
-                if (iScore > maxScore) {
-                    maxMove = i;
-                    maxScore = iScore;
+            int maxMove = (new Random()).nextInt(width);
+            long maxScore = scoreMove(maxMove, cpDepth, board, opponent);
+            long[] scores = new long[width];
+            for (int i = 0; i != width; ++i) {
+                if (board.whoPlayed(i, height-1) != null) {
+                	continue;
                 }
-                scores[i] = iScore;
+                long score = scoreMove(i, cpDepth, board, opponent);
+                if (score > maxScore) {
+                    maxMove = i;
+                    maxScore = score;
+                }
+                scores[i] = score;
             }
-	    while (board.whoPlayed(maxMove, m-1) != null) {
-                maxMove = (maxMove+1)%l;
+	    while (board.whoPlayed(maxMove, height-1) != null) {
+                maxMove = (maxMove+1)%width;
 	    }
             System.out.println(Arrays.toString(scores));
             board.play(maxMove, this);
         }
     }
 
-    private long scoreMove(int x, int depth, ReadableBoard board, Player opponent) {
-        int m = board.getHeight();
-        if (board.whoPlayed(x, m-1) != null) return 0;
+    private long scoreMove(int positionX, int depth, ReadableBoard board, Player opponent) {
+        int height = board.getHeight();
+        if (board.whoPlayed(positionX, height-1) != null) {
+        	return 0;
+        }
         Board myMove = new Board(board);
-        myMove.play(x, this);
-        int l = myMove.getWidth();
+        myMove.play(positionX, this);
+        int width = myMove.getWidth();
         long score = 0;
         if (Game.detectWinner(myMove, 4) == this) {
-            score += Math.pow(l, depth);
+            score += Math.pow(width, depth);
         } else if (depth != 0) {
-            for (int i = 0; i != l; ++i) {
-                if (myMove.whoPlayed(i, m-1) != null) continue;
+            for (int i = 0; i != width; ++i) {
+                if (myMove.whoPlayed(i, height-1) != null) {
+                	continue;
+                }
                 Board nextMove = new Board(myMove);
                 nextMove.play(i, opponent);
                 if (Game.detectWinner(nextMove, 4) == opponent) {
-		    score -= Math.pow(l, depth-1);
+		    score -= Math.pow(width, depth-1);
 		} else {
-                    for (int j = 0; j != l; ++j) {
+                    for (int j = 0; j != width; ++j) {
                         score += scoreMove(j, depth - 2, nextMove, opponent);
                     }
                 }
@@ -75,10 +81,10 @@ public class ComputerPlayer implements Player {
     }
 
     private Player getOpponent(ReadableBoard board) {
-        int l = board.getWidth();
-        int m = board.getHeight();
-        for (int i = 0; i != l; ++i) {
-            for (int j = 0; j != m; ++j) {
+        int width = board.getWidth();
+        int height = board.getHeight();
+        for (int i = 0; i != width; ++i) {
+            for (int j = 0; j != height; ++j) {
                 Player here = board.whoPlayed(i, j);
                 if (here != null && here != this) {
                     return here;

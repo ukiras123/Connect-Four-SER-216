@@ -34,8 +34,7 @@ public class GUIPiece extends JLabel{
 			glow2 = new ImageIcon(getClass().getResource("/red_glow/glow2.png"));
 			glow3 = new ImageIcon(getClass().getResource("/red_glow/glow3.png"));
 			glow4 = new ImageIcon(getClass().getResource("/red_glow/glow4.png"));
-		}
-		else{
+		}else{
 			setIcon(blueIcon);
 			glowNum = 1;
 			glow1 = new ImageIcon(getClass().getResource("/blue_glow/glow1.png"));

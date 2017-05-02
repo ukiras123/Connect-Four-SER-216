@@ -12,17 +12,20 @@ public class RandomPlayer implements Player {
     }
     @Override
     public void performPlay(ReadWritableBoard board) {
-	int width = board.getWidth();
-	int height = board.getHeight();
-	Random rand = new Random();
-        int x = rand.nextInt(width);
-        if (board.whoPlayed(x, height-1) != null) {
-	    int chosenX = (x + 1) % width;
-	    while (board.whoPlayed(chosenX, height-1) != null && chosenX != x) {
-		chosenX = (x + 1) % width;
-	    }
-	    x = chosenX;
-	}
-	board.play(x, this);
+    	int width = board.getWidth();
+		int height = board.getHeight();
+		Random rand = new Random();
+        int randomInt = rand.nextInt(width);
+        
+        if (board.whoPlayed(randomInt, height-1) != null) {
+        	int chosenX = (randomInt + 1) % width;
+	    
+        	while (board.whoPlayed(chosenX, height-1) != null && chosenX != randomInt) {
+		    		chosenX = (randomInt + 1) % width;
+        	}
+        	randomInt = chosenX;
+        }
+        
+        board.play(randomInt, this);
     }
 }

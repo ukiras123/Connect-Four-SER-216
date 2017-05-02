@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface ScoreChart {
 
-    public static interface Listener {
-	void gameOver(Player winner, ScoreChart scores, ReadableBoard end);
+    public interface Listener {
+    	void gameOver(Player winner, ScoreChart scores, ReadableBoard end);
     }
 
     List<Player> getPlayers();
-    int getScore(Player p);
-    void registerListener(Listener l);
-    void unregisterListener(Listener l);
+    int getScore(Player player);
+    void registerListener(Listener toRegister);
+    void unregisterListener(Listener toUnregister);
 	
 }

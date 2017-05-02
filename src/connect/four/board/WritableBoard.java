@@ -5,6 +5,6 @@ import connect.four.player.Player;
 
 
 public interface WritableBoard {
-    void play(int x, Player p);
+    void play(int column, Player player);
     void clear();
 }

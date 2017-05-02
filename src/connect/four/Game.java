@@ -11,110 +11,117 @@ import java.util.Random;
 
 
 public class Game implements ScoreChart {
-    Player[] m_players;
-    int[] m_scores;
-    List<ScoreChart.Listener> m_listeners;
-    ReadWritableBoard m_board;
-    int m_inRow;
-    int m_currentPlayer;
+    Player[] gamePlayers;
+    int[] playerScores;
+    List<ScoreChart.Listener> listenersList;
+    ReadWritableBoard gameBoard;
+    int gameInRow;
+    int gameCurrentPlayer;
     
     public Game(Player[] players, ReadWritableBoard board, int inRow) {
-        m_players = Arrays.copyOf(players, players.length);
-        m_scores = new int[players.length];
-        m_listeners = new ArrayList<ScoreChart.Listener>();
-        m_board = board;
-        m_inRow = inRow;
+        gamePlayers = Arrays.copyOf(players, players.length);
+        playerScores = new int[players.length];
+        listenersList = new ArrayList<ScoreChart.Listener>();
+        gameBoard = board;
+        gameInRow = inRow;
     }
     public void start() {
-        int first = (new Random()).nextInt(m_players.length);
+        int first = (new Random()).nextInt(gamePlayers.length);
         performPlay(first);
     }
-    @Override public void registerListener(ScoreChart.Listener l) {
-        m_listeners.add(l);
+    @Override public void registerListener(ScoreChart.Listener toRegister) {
+        listenersList.add(toRegister);
     }
-    @Override public void unregisterListener(ScoreChart.Listener l) {
-        m_listeners.remove(l);
+    @Override public void unregisterListener(ScoreChart.Listener toUnregister) {
+        listenersList.remove(toUnregister);
     }
     @Override public List<Player> getPlayers() {
-        return Arrays.asList(m_players);
+        return Arrays.asList(gamePlayers);
     }
-    @Override public int getScore(Player p) {
+    @Override public int getScore(Player player) {
         int pos = -1;
-        int l = m_players.length;
-        for (int i = 0; i != l; ++i) {
-            if (m_players[i] == p) pos = i;
+        int lenght = gamePlayers.length;
+        for (int i = 0; i != lenght; ++i) {
+            if (gamePlayers[i] == player) {
+            	pos = i;
+            }
         }
-        return m_scores[pos];
+        return playerScores[pos];
     }
     void performPlay(final int player) {
-        m_currentPlayer = player;
+        gameCurrentPlayer = player;
         ReadWritableBoard controlledBoard = new ReadWritableBoard() {
             boolean played;
-            @Override public Player whoPlayed(int x, int y) {
-                return m_board.whoPlayed(x, y);
+            
+            @Override 
+            public Player whoPlayed(int positionX, int positionY) {
+                return gameBoard.whoPlayed(positionX, positionY);
             }
-            @Override public void play(int x, Player p) {
+            
+            @Override 
+            public void play(int positionX, Player playerPlay) {
                 if (played) {
-                    throw new Error(p+" Played more than once in a turn.");
+                    throw new Error(playerPlay+" Played more than once in a turn.");
                 }
                 played = true;
-                m_board.play(x, p);
-		Player win = detectWinner(m_board, m_inRow);
+                gameBoard.play(positionX, playerPlay);
+                Player win = detectWinner(gameBoard, gameInRow);
                 if (win != null) {
-                    m_scores[player] += 1;
-                    for (ScoreChart.Listener l : m_listeners) {
-                        l.gameOver(win, Game.this, m_board);
+                    playerScores[player] += 1;
+                    for (ScoreChart.Listener l : listenersList) {
+                        l.gameOver(win, Game.this, gameBoard);
                     }
-                    m_board.clear();
+                    gameBoard.clear();
                     performPlay(player);
-		} else if (m_board.getMoveCount() == m_board.getWidth()*m_board.getHeight() ) {
-                    for (ScoreChart.Listener l : m_listeners) {
-                        l.gameOver(null, Game.this, m_board);
+                } else if (gameBoard.getMoveCount() 
+                		== gameBoard.getWidth()*gameBoard.getHeight() ) {
+                    for (ScoreChart.Listener l : listenersList) {
+                        l.gameOver(null, Game.this, gameBoard);
                     }
-                    m_board.clear();
-                    performPlay((player+1) % m_players.length);
+                    gameBoard.clear();
+                    performPlay((player+1) % gamePlayers.length);
                 } else {
-                    performPlay((player+1) % m_players.length);
+                    performPlay((player+1) % gamePlayers.length);
                 }
             }
             @Override public void clear() {
-                m_board.clear();
+                gameBoard.clear();
             }
             @Override public int getWidth() {
-                return m_board.getWidth();
+                return gameBoard.getWidth();
             }
             @Override public int getHeight() {
-                return m_board.getHeight();
+                return gameBoard.getHeight();
             }
-	    @Override public int getColumnHeight(int x) {
-		return m_board.getColumnHeight(x);
-	    }
-	    @Override public int getMoveCount() {
-		return m_board.getMoveCount();
-	    }
+            @Override public int getColumnHeight(int column) {
+            	return gameBoard.getColumnHeight(column);
+            }
+            @Override public int getMoveCount() {
+            	return gameBoard.getMoveCount();
+            }
         };
-        m_players[player].performPlay(controlledBoard);
+        gamePlayers[player].performPlay(controlledBoard);
     }
     
     public Player getCurrentPlayer(){
-            return m_players[m_currentPlayer];
+            return gamePlayers[gameCurrentPlayer];
     }
 
     public int getInRow() {
-	return m_inRow;
+	return gameInRow;
     }
 
     public ReadableBoard getBoard() {
-	return m_board;
+	return gameBoard;
     }
 
     public static Player detectWinner(ReadableBoard board, int inRow) {
-        int l = board.getWidth();
-        int m = board.getHeight();
-        for (int i = 0; i != l; ++i) {
+        int width = board.getWidth();
+        int height = board.getHeight();
+        for (int i = 0; i != width; ++i) {
             Player possible = null;
             int found = 0;
-            for (int j = 0; j != m; ++j) {
+            for (int j = 0; j != height; ++j) {
                 if (board.whoPlayed(i, j) == possible && possible != null) {
                     found += 1;
                 } else {
@@ -126,10 +133,10 @@ public class Game implements ScoreChart {
                 }
             }
         }
-        for (int i = 0; i != m; ++i) {
+        for (int i = 0; i != height; ++i) {
             Player possible = null;
             int found = 0;
-            for (int j = 0; j != l; ++j) {
+            for (int j = 0; j != width; ++j) {
                 if (board.whoPlayed(j, i) == possible && possible != null) {
                     found += 1;
                 } else {
@@ -141,17 +148,17 @@ public class Game implements ScoreChart {
                 }
             }
         }
-	for (int i = -l; i != l; ++i) {
+	for (int i = -width; i != width; ++i) {
             Player possible = null;
             int found = 0;
-	    for (int j = 0; j != m; ++j) {
-		int k = j+i;
-		if (k >= 0 && k < l) {
-                    if (board.whoPlayed(k, j) == possible && possible != null) {
+	    for (int j = 0; j != height; ++j) {
+		int sum = j+i;
+		if (sum >= 0 && sum < width) {
+                    if (board.whoPlayed(sum, j) == possible && possible != null) {
                         found += 1;
                     } else {
                         found = 1;
-                        possible = board.whoPlayed(k, j);
+                        possible = board.whoPlayed(sum, j);
                     }
                     if (found == inRow) {
                         return possible;
@@ -159,17 +166,17 @@ public class Game implements ScoreChart {
 		}
 	    }
 	}
-	for (int i = -l; i != l; ++i) {
+	for (int i = -width; i != width; ++i) {
             Player possible = null;
             int found = 0;
-	    for (int j = 0; j != m; ++j) {
-		int k = j+i;
-		if (k >= 0 && k < l) {
-                    if (board.whoPlayed(l-k-1, j) == possible && possible != null) {
+	    for (int j = 0; j != height; ++j) {
+		int sum = j+i;
+		if (sum >= 0 && sum < width) {
+                    if (board.whoPlayed(width-sum-1, j) == possible && possible != null) {
                         found += 1;
                     } else {
                         found = 1;
-                        possible = board.whoPlayed(l-k-1, j);
+                        possible = board.whoPlayed(width-sum-1, j);
                     }
                     if (found == inRow) {
                         return possible;

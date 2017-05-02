@@ -5,77 +5,77 @@ import connect.four.player.Player;
 import java.util.Arrays;
 
 public class Board implements ReadWritableBoard {
-	Player[][] m_contents;
-	int m_moveCount;
+	Player[][] boardContents;
+	int boardmoveCount;
 
 	public Board(int width, int height) {
-		m_contents = new Player[width][height];
-		m_moveCount = 0;
+		boardContents = new Player[width][height];
+		boardmoveCount = 0;
 	}
 
 	public Board(ReadableBoard copy) {
 		if (copy instanceof Board) {
 			Board copyB = (Board) copy;
-			m_moveCount = copyB.m_moveCount;
-			int l = copyB.m_contents.length;
-			int m = copyB.m_contents[0].length;
-			m_contents = new Player[l][m];
-			for (int i = 0; i != l; ++i) {
-				m_contents[i] = Arrays.copyOf(copyB.m_contents[i], m);
+			boardmoveCount = copyB.boardmoveCount;
+			int width = copyB.boardContents.length;
+			int height = copyB.boardContents[0].length;
+			boardContents = new Player[width][height];
+			for (int i = 0; i != width; ++i) {
+				boardContents[i] = Arrays.copyOf(copyB.boardContents[i], height);
 			}
 		} else {
-			int l = copy.getWidth();
-			int m = copy.getHeight();
-			m_contents = new Player[l][m];
-			m_moveCount = copy.getMoveCount();
-			for (int i = 0; i != l; ++i) {
-				for (int j = 0; j != m; ++j) {
-					m_contents[i][j] = copy.whoPlayed(i, j);
+			int width = copy.getWidth();
+			int height = copy.getHeight();
+			boardContents = new Player[width][height];
+			boardmoveCount = copy.getMoveCount();
+			for (int i = 0; i != width; ++i) {
+				for (int j = 0; j != height; ++j) {
+					boardContents[i][j] = copy.whoPlayed(i, j);
 				}
 			}
 		}
 	}
 
-	public @Override Player whoPlayed(int x, int y) {
-		return m_contents[x][y];
+	public @Override Player whoPlayed(int positionX, int positionY) {
+		return boardContents[positionX][positionY];
 	}
 
 	public @Override int getWidth() {
-		return m_contents.length;
+		return boardContents.length;
 	}
 
 	public @Override int getHeight() {
-		return m_contents[0].length;
+		return boardContents[0].length;
 	}
 
-	public @Override void play(int x, Player p) {
-		int y = getColumnHeight(x);
-		if (y == m_contents[x].length) {
+	public @Override void play(int column, Player player) {
+		int height = getColumnHeight(column);
+		if (height == boardContents[column].length) {
 			throw new ColumnFullException();
 		}
-		m_contents[x][y] = p;
-		m_moveCount += 1;
+		boardContents[column][height] = player;
+		boardmoveCount += 1;
 	}
 
-	public @Override int getColumnHeight(int x) {
-		int y = 0;
-		int l = m_contents[0].length;
-		while (y != l && m_contents[x][y] != null) {
-			y += 1;
+	public @Override int getColumnHeight(int column) {
+		int height = 0;
+		int length = boardContents[0].length;
+		while (height != length && boardContents[column][height] != null) {
+			height += 1;
 		}
-		return y;
+		return height;
 	}
 
 	public @Override void clear() {
-		int l = m_contents.length;
-		int m = m_contents[0].length;
-		for (int i = 0; i != l; ++i) {
-			m_contents[i] = new Player[m];
+		int width = boardContents.length;
+		int height = boardContents[0].length;
+		for (int i = 0; i != width; ++i) {
+			boardContents[i] = new Player[height];
 		}
-		m_moveCount = 0;
+		boardmoveCount = 0;
 	}
 
 	public @Override int getMoveCount() {
-		return m_moveCount;
+		return boardmoveCount;
 	}
 }

@@ -4,9 +4,9 @@ package connect.four.board;
 import connect.four.player.Player;
 
 public interface ReadableBoard {
-    Player whoPlayed(int x, int y);
+    Player whoPlayed(int positionX, int positionY);
     int getWidth();
     int getHeight();
-    int getColumnHeight(int x);
+    int getColumnHeight(int column);
     int getMoveCount();
 }

@@ -38,19 +38,19 @@ public class GUIWrapperPlayer implements Player {
 		final ReadWritableBoard wrapperBoard = new ReadWritableBoard() {
 			
 			
-			public Player whoPlayed( int x, int y){
+			public Player whoPlayed( int positionX, int positionY){
 				
-				return board.whoPlayed(x, y);
+				return board.whoPlayed(positionX, positionY);
 			}
 			
 			@Override
-			public void play(final int x, Player p) {
+			public void play(final int column, Player player) {
 				
 				
 				java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-					gpGUI.calcWidth(x);
+					gpGUI.calcWidth(column);
 					gpGUI.turn();
 				}
 			});
@@ -67,8 +67,8 @@ public class GUIWrapperPlayer implements Player {
 			}
 
 			@Override
-			public int getColumnHeight(int x) {
-				return board.getColumnHeight(x);
+			public int getColumnHeight(int height) {
+				return board.getColumnHeight(height);
 			}
 
 			@Override
