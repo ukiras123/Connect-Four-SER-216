@@ -35,11 +35,11 @@ public class ConsolePlayer implements Player, ScoreChart.Listener {
 
 	@Override
 	public void gameOver(Player winner, ScoreChart scores, ReadableBoard board) {
+		dumpBoard(board);
+		
 		System.out.println("|------------------------|");
 		System.out.println("  "+ playerName + (winner == this ? " won." : " lost."));
-		if(winner == this){
-			dumpBoard(board);
-		}
+		
 		System.out.println("  "+ playerName + ": " + scores.getScore(this));
 		System.out.println("|------------------------|");
 	}
@@ -66,7 +66,7 @@ public class ConsolePlayer implements Player, ScoreChart.Listener {
 					}
 				} catch (IOException e) {
 					System.out.print("Something went wrong when reading"
-							+ " your column. Please ");
+							+ " your column. Please enter it again");
 					continue;
 				} catch (NumberFormatException e) {
 					System.out.println("Please enter a valid integer "
