@@ -1,16 +1,14 @@
 package test;
 
-import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import connect.four.Game;
 import connect.four.board.Board;
 import connect.four.player.ConsolePlayer;
 import connect.four.player.Player;
-import connect.four.board.ReadableBoard;
+
 public class ConsolePlayerTest2 {
 
 	Board testboard1;
@@ -58,7 +56,7 @@ public class ConsolePlayerTest2 {
 		Object[][] layout2  ={{ null, null, null, null, null, null },
 					     { null, null, null, null, null, null },
 				 	     { null, null, null, null, null, null },
-	            			     { null, null, null, null, null, null },
+	            		 { null, null, null, null, null, null },
 				 	     { null, plyO, null, null, null, null },
 				 	     { null, plyX, null, null, null, plyO },
 				 	     { plyO, plyX, null, null, null, plyX }};
