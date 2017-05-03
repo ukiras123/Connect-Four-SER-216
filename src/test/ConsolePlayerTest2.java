@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 import connect.four.Game;
 import connect.four.board.Board;
@@ -78,14 +79,17 @@ public class ConsolePlayerTest2 {
 		}
 
 		testboard1 = new Board(a);
-		game = new Game(new Player[] { plyX, plyO }, testboard1, 4);
 		testboard2 = new Board(b);
-		game = new Game(new Player[] { plyX, plyO }, testboard2, 4);
 		testboard3 = new Board(c);
-		game = new Game(new Player[] { plyX, plyO }, testboard3, 4);
-		game.start();
 	}
 
+	@Test
+	public void testConsolePlayerBoard(){
+		game = new Game(new Player[] { plyX, plyO }, testboard1, 4);
+		game = new Game(new Player[] { plyX, plyO }, testboard2, 4);
+		game = new Game(new Player[] { plyX, plyO }, testboard3, 4);
+
+	}
 	@After
 	public void tearDown() throws Exception {
 	}

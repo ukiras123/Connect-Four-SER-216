@@ -13,6 +13,18 @@ public class Board implements ReadWritableBoard {
 		boardmoveCount = 0;
 	}
 
+	// Constructor for testing purpose
+	public Board(Player[][] layout) {
+		boardContents = new Player[layout.length][layout[0].length];
+
+		for (int i = 0; i < layout.length; i++) {
+			for (int j = 0; j < layout[i].length; j++) {
+				boardContents[i][j] = layout[i][j];
+			}
+		}
+		boardmoveCount = 0;
+	}
+
 	public Board(ReadableBoard copy) {
 		if (copy instanceof Board) {
 			Board copyB = (Board) copy;
@@ -35,18 +47,6 @@ public class Board implements ReadWritableBoard {
 			}
 		}
 	}
-	
-	// Constructor for testing purpose
-    public Board(Player[][] layout) {
-    	boardContents = new Player[layout.length][layout[0].length];
-        
-        for(int i = 0; i < layout.length; i++){
-        	for(int j = 0; j < layout[i].length; j++){
-        		boardContents[i][j] = layout[i][j];
-        	}
-        }        
-        boardmoveCount = 0;
-    }
 
 	public @Override Player whoPlayed(int positionX, int positionY) {
 		return boardContents[positionX][positionY];

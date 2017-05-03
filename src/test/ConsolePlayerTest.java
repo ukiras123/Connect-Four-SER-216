@@ -38,7 +38,6 @@ public class ConsolePlayerTest {
 
 	@Test(expected = NullPointerException.class)
 	public void testConstructorNegative() {
-		System.out.println("Initiating ConsolePlayer constructor negative Test");
 		player = new ConsolePlayer(null);
 		player = new ConsolePlayer("");
 	}

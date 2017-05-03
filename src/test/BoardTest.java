@@ -7,6 +7,7 @@ import org.junit.Test;
 import connect.four.board.Board;
 import connect.four.board.ColumnFullException;
 import connect.four.board.ReadableBoard;
+import connect.four.gui.GUIPiece;
 import connect.four.player.ComputerPlayer;
 import connect.four.player.ConsolePlayer;
 import connect.four.player.Player;
@@ -46,6 +47,16 @@ public class BoardTest {
 			@Override
 			public int getMoveCount() {
 				return 0;
+			}
+
+			public int turnAt(int positionX, int positionY) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			public GUIPiece pieceAt(int positionX, int positionY) {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		});
 
