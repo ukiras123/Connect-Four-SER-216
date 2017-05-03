@@ -3,16 +3,26 @@ package connect.four;
 
 import connect.four.player.Player;
 import connect.four.board.ReadableBoard;
+import connect.four.gui.GUI;
+import connect.four.gui.GUIPiece;
+import connect.four.gui.GUIPlayer;
+import connect.four.gui.GUIWrapperPlayer;
 import connect.four.board.ReadWritableBoard;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.Timer;
+
 
 public class Game implements ScoreChart {
     Player[] gamePlayers;
     int[] playerScores;
+    static List<Integer> winningTurns;
     List<ScoreChart.Listener> listenersList;
     ReadWritableBoard gameBoard;
     int gameInRow;
@@ -21,9 +31,11 @@ public class Game implements ScoreChart {
     public Game(Player[] players, ReadWritableBoard board, int inRow) {
         gamePlayers = Arrays.copyOf(players, players.length);
         playerScores = new int[players.length];
+        
         listenersList = new ArrayList<ScoreChart.Listener>();
         gameBoard = board;
         gameInRow = inRow;
+        winningTurns = new ArrayList<Integer>();
     }
     public void start() {
         int first = (new Random()).nextInt(gamePlayers.length);
@@ -56,6 +68,16 @@ public class Game implements ScoreChart {
             @Override 
             public Player whoPlayed(int positionX, int positionY) {
                 return gameBoard.whoPlayed(positionX, positionY);
+            }
+            
+            @Override 
+            public int turnAt(int positionX, int positionY) {
+                return gameBoard.turnAt(positionX, positionY);
+            }
+            
+            @Override 
+            public GUIPiece pieceAt(int positionX, int positionY) {
+                return gameBoard.pieceAt(positionX, positionY);
             }
             
             @Override 
@@ -124,12 +146,32 @@ public class Game implements ScoreChart {
             for (int j = 0; j != height; ++j) {
                 if (board.whoPlayed(i, j) == possible && possible != null) {
                     found += 1;
+                    if(winningTurns.size() >= found){
+                    	winningTurns.set(found-1, board.turnAt(i, j));
+                    } else{
+                    	winningTurns.add(board.turnAt(i, j));
+                    }
                 } else {
                     found = 1;
                     possible = board.whoPlayed(i, j);
+                    if(winningTurns.size() >= found){
+                    	winningTurns.set(found-1, board.turnAt(i, j));
+                    } else{
+                    	winningTurns.add(board.turnAt(i, j));
+                    }
+                    
                 }
-                if (found == inRow) {
-                    return possible;
+                if (found == inRow) {             	
+                	                	
+                	for(int x = 0; x < GUI.getPanel().turnNum; x++){
+                		if(!winningTurns.contains(x)){
+                			System.out.println("Unglowing piece at turn: " + x);
+                			GUI.getPanel().getPieceAt(x).setShouldGlow(false);
+                		}   
+        			}
+                	GUI.getPanel().finalTimer();
+                	                	
+                	return possible;
                 }
             }
         }
@@ -139,49 +181,105 @@ public class Game implements ScoreChart {
             for (int j = 0; j != width; ++j) {
                 if (board.whoPlayed(j, i) == possible && possible != null) {
                     found += 1;
+                    if(winningTurns.size() >= found){
+                    	winningTurns.set(found-1, board.turnAt(j, i));
+                    } else{
+                    	winningTurns.add(board.turnAt(j, i));
+                    }
                 } else {
                     found = 1;
                     possible = board.whoPlayed(j, i);
+                    if(winningTurns.size() >= found){
+                    	winningTurns.set(found-1, board.turnAt(j, i));
+                    } else{
+                    	winningTurns.add(board.turnAt(j, i));
+                    }
                 }
                 if (found == inRow) {
-                    return possible;
+                	for(int x = 0; x < GUI.getPanel().turnNum; x++){
+                		if(!winningTurns.contains(x)){
+                			System.out.println("Unglowing piece at turn: " + x);
+                			GUI.getPanel().getPieceAt(x).setShouldGlow(false);
+                		}   
+        			}
+                	GUI.getPanel().finalTimer();
+                	                	
+                	return possible;
                 }
             }
         }
 	for (int i = -width; i != width; ++i) {
-            Player possible = null;
-            int found = 0;
+        Player possible = null;
+        int found = 0;
 	    for (int j = 0; j != height; ++j) {
 		int sum = j+i;
 		if (sum >= 0 && sum < width) {
                     if (board.whoPlayed(sum, j) == possible && possible != null) {
                         found += 1;
+                        if(winningTurns.size() >= found){
+                        	winningTurns.set(found-1, board.turnAt(sum, j));
+                        } else{
+                        	winningTurns.add(board.turnAt(sum, j));
+                        }
                     } else {
                         found = 1;
                         possible = board.whoPlayed(sum, j);
+                        if(winningTurns.size() >= found){
+                        	winningTurns.set(found-1, board.turnAt(sum, j));
+                        } else{
+                        	winningTurns.add(board.turnAt(sum, j));
+                        }
                     }
                     if (found == inRow) {
-                        return possible;
+                    	for(int x = 0; x < GUI.getPanel().turnNum; x++){
+                    		if(!winningTurns.contains(x)){
+                    			System.out.println("Unglowing piece at turn: " + x);
+                    			GUI.getPanel().getPieceAt(x).setShouldGlow(false);
+                    		}   
+            			}
+                    	GUI.getPanel().finalTimer();
+                    	                	
+                    	return possible;
                     }
 		}
 	    }
 	}
 	for (int i = -width; i != width; ++i) {
-            Player possible = null;
-            int found = 0;
+        Player possible = null;
+        int found = 0;
 	    for (int j = 0; j != height; ++j) {
-		int sum = j+i;
-		if (sum >= 0 && sum < width) {
+	    	int sum = j+i;
+	    	if (sum >= 0 && sum < width) {
                     if (board.whoPlayed(width-sum-1, j) == possible && possible != null) {
                         found += 1;
+                        if(winningTurns.size() >= found){
+                        	winningTurns.set(found-1, board.turnAt(width-sum-1, j));
+                        } else{
+                        	winningTurns.add(board.turnAt(width-sum-1, j));
+                        }
                     } else {
                         found = 1;
                         possible = board.whoPlayed(width-sum-1, j);
+                        if(winningTurns.size() >= found){
+                        	winningTurns.set(found-1, board.turnAt(width-sum-1, j));
+                        } else{
+                        	winningTurns.add(board.turnAt(width-sum-1, j));
+                        }
                     }
-                    if (found == inRow) {
-                        return possible;
+                    if (found == inRow){
+                    	for(int x = 0; x < GUI.getPanel().turnNum; x++){
+                    		if(!winningTurns.contains(x)){
+                    			System.out.println("Unglowing piece at turn: " + x);
+                    			GUI.getPanel().getPieceAt(x).setShouldGlow(false);
+                    		}   
+            			}
+                    	GUI.getPanel().finalTimer();
+                    	                	
+                    	return possible;
                     }
-		}
+	    	
+	    
+	    	}
 	    }
 	}
         return null;

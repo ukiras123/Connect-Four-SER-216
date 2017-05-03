@@ -42,6 +42,16 @@ public class GUIWrapperPlayer implements Player {
 				
 				return board.whoPlayed(positionX, positionY);
 			}
+
+			public int turnAt( int positionX, int positionY){
+				
+				return board.turnAt(positionX, positionY);
+			}
+			
+			public GUIPiece pieceAt( int positionX, int positionY){
+				
+				return board.pieceAt(positionX, positionY);
+			}
 			
 			@Override
 			public void play(final int column, Player player) {

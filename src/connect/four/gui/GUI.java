@@ -14,7 +14,7 @@ import connect.four.player.*;
 public class GUI extends javax.swing.JFrame {
 
 	MainMenuPanel mainMenu;
-	GamePanel gamePanel;
+	public static GamePanel gamePanel;
 	GameOverPanel gameOverPanel;
 	String p1Name;
 	String p2Name;
@@ -53,7 +53,9 @@ public class GUI extends javax.swing.JFrame {
                 pack();
         }// </editor-fold>//GEN-END:initComponents
 
-	
+	public static GamePanel getPanel(){
+		return gamePanel;
+	}
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
 
@@ -137,11 +139,7 @@ public class GUI extends javax.swing.JFrame {
 	}
 	
 	void addGameOver(){
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		
 		remove(gamePanel);
 		System.out.println("New Game Over Panel added");
 		gameOverPanel = new GameOverPanel(this, winner);

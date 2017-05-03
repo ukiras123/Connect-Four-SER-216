@@ -15,6 +15,8 @@ import javax.swing.*;
 public class GUIPiece extends JLabel{
 	
 	int glowNum;
+	static boolean shouldGlow;
+	ImageIcon glow0;
 	ImageIcon glow1;
 	ImageIcon glow2;
 	ImageIcon glow3;
@@ -23,6 +25,7 @@ public class GUIPiece extends JLabel{
 	
 	public GUIPiece(int playerNum){
 		setSize(145,145);
+		shouldGlow = true;
 		setOpaque(false);
 		setText("");
 		ImageIcon redIcon = new ImageIcon(getClass().getResource("/red_glow/glow1.png"));
@@ -30,6 +33,7 @@ public class GUIPiece extends JLabel{
 		if(playerNum == 0){
 			setIcon(redIcon);
 			glowNum = 0;
+			glow0 = new ImageIcon(getClass().getResource("/red_piece.png"));
 			glow1 = new ImageIcon(getClass().getResource("/red_glow/glow1.png"));
 			glow2 = new ImageIcon(getClass().getResource("/red_glow/glow2.png"));
 			glow3 = new ImageIcon(getClass().getResource("/red_glow/glow3.png"));
@@ -37,20 +41,29 @@ public class GUIPiece extends JLabel{
 		}else{
 			setIcon(blueIcon);
 			glowNum = 1;
+			glow0 = new ImageIcon(getClass().getResource("/blue_piece.png"));
 			glow1 = new ImageIcon(getClass().getResource("/blue_glow/glow1.png"));
 			glow2 = new ImageIcon(getClass().getResource("/blue_glow/glow2.png"));
 			glow3 = new ImageIcon(getClass().getResource("/blue_glow/glow3.png"));
 			glow4 = new ImageIcon(getClass().getResource("/blue_glow/glow4.png"));
 		}
 		
-		glowing = new ImageIcon[] {glow1, glow2, glow3, glow4, glow3, glow2};
+		glowing = new ImageIcon[] {glow1, glow2, glow3, glow4, glow3, glow2, glow1};
 		revalidate();
 		repaint();
 		setVisible(true);
 	}
 	
 	ImageIcon getGlow(int index){
-		return glowing[index];
+		if(shouldGlow){
+			return glowing[index];
+		}else{
+			return glowing[0];
+		}		
+	}
+	
+	public static void setShouldGlow(boolean shouldIt){
+		shouldGlow = shouldIt;
 	}
 
 

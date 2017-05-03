@@ -18,17 +18,17 @@ import javax.swing.Timer;
 public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener {
 
 	GUI gui;
-	static final long GLOW_START_TIME = (int)System.currentTimeMillis();
-	static final int PLAY_TIME = 1500;
+	final static long GLOW_START_TIME = (int)System.currentTimeMillis();
+	final static int PLAY_TIME = 1500;
 	boolean falling;
 	int columnNum;
-	int turnNum;
+	public static int turnNum;
 	int whoPlayed;
 	int newDrawPos;
 	int newColumnNum;
 	Player[] players;
 	Game game;
-	GUIPiece[] pieces;
+	public static GUIPiece[] pieces;
 	Board board;
 	boolean isComputerEnabled;
 	boolean justWon;
@@ -48,7 +48,13 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
     private javax.swing.JPanel topGlass;
     private javax.swing.JLabel turnDisplay;
     
-	
+
+    /**
+     * 
+     * @param gui - the GUI object that handles all of the 
+     * 			
+     * @param isComputerEnabled
+     */
 	public GamePanel(GUI gui, boolean isComputerEnabled) {
 		//whoPlayed = 1;
 		players = new Player[2];
@@ -69,6 +75,10 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 		justWon = false;
 		
 		initNewGame();
+	}
+	
+	public static GUIPiece getPieceAt(int turn){
+		return pieces[turn];
 	}
 
 	/**
@@ -492,7 +502,39 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 	}
 	
 	
-	
+	public void finalTimer(){
+		final long startTime = System.currentTimeMillis();
+    	for(int i = 0; i < 5000; i++){
+    		                		
+        	Timer timer = new Timer(100, new ActionListener() {
+    		    @Override
+                public void actionPerformed(ActionEvent event) {
+
+    			long duration = System.currentTimeMillis() - startTime;
+    			float progress = (float)duration / (float)1500;
+    			revalidate();
+    			repaint();
+    			if (progress > 5000f) {
+    				progress = 1f;
+    				((Timer)(event.getSource())).stop();
+    				System.out.println("Game is about to end");
+    				
+    				}
+    			
+    		    }});
+        	timer.start();
+        	/*?
+        	for(int j = 0; j < turnNum; j++){
+        		glow(pieces[j],true);
+        	}
+        	*/
+    		try {
+    			Thread.sleep(1);
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}
+    	}
+	}
 	
 	public int getTargetY(){
 		int height = board.getColumnHeight(getColumnNum());
@@ -604,7 +646,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 		if(!justWon){
 			if(falling == false){
 				//move piece to top glass, for glow.
-				glow(pieces[turnNum]);
+				glow(pieces[turnNum], true);
 
 				turnNum +=1;
 
@@ -722,8 +764,11 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 	
 	
 	
-	void glow(GUIPiece currentPiece){
+	public void glow(GUIPiece currentPiece, boolean shouldGlow){
 		final GUIPiece cP = currentPiece;
+		if(shouldGlow){
+			
+		
 		topGlass.add(cP);
 		Timer timer = new Timer(100, new ActionListener() {
 			@Override
@@ -731,11 +776,11 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 				long tick = GLOW_START_TIME - System.currentTimeMillis();
 				tick = (-1*tick/100);
 				//System.out.println(tick%6);
-				cP.setIcon(cP.getGlow((int)tick%6));
+				cP.setIcon(cP.getGlow((int)tick%7));
 				topGlass.invalidate();
 				topGlass.revalidate();
 				topGlass.repaint();
-				}
+			}
 
 			
 		    
@@ -743,6 +788,12 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 		timer.setRepeats(true);
 		timer.setCoalesce(true);
 		timer.start();
+		} else{
+			cP.setIcon(cP.getGlow(0));
+			topGlass.invalidate();
+			topGlass.revalidate();
+			topGlass.repaint();
+		}
 	}
 	
 }

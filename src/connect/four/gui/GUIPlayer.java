@@ -26,8 +26,7 @@ public class GUIPlayer implements Player {
 	}
 	
 	@Override public void performPlay(ReadWritableBoard board) {
-		this.board = board;
-		
+		this.board = board;		
 		
 	}
 	
