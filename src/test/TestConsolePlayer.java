@@ -30,48 +30,45 @@ public class TestConsolePlayer {
 	public void testDumpBoard() {
 		
 		/**
-		*Initialize the console players John and Paul 
+		*Initialize the console players Scott and Greg 
 		*/
-		ConsolePlayer greg = new ConsolePlayer("john the @ player");
-		ConsolePlayer scott = new ConsolePlayer("paul the X player");
+		ConsolePlayer greg = new ConsolePlayer("greg the @ player");
+		ConsolePlayer scott = new ConsolePlayer("scott the X player");
 		Method dumpBoard = null;
 		
 		/**
 		*String representation 1 of expected output
 		*/
-		String expectedOutput1 = "@ is you, X is the other player, and * is empty." + System.lineSeparator() +
-					 " *  *  *  *  *  *  * " + System.lineSeparator() +
-					 " *  *  *  *  *  *  * " + System.lineSeparator() +
-					 " *  *  *  *  *  *  * " + System.lineSeparator() +
-					 " *  *  *  *  *  *  * " + System.lineSeparator() +
-					 " *  *  *  *  *  *  * " + System.lineSeparator() +
-					 " *  *  *  *  *  *  * " + System.lineSeparator() +
-					 "=====================" + System.lineSeparator() +
-					 " 1  2  3  4  5  6  7 " + System.lineSeparator();
+		String expectedOutput1 = "@ is you, X is the other player, and O is empty." + System.lineSeparator() +
+					 "OOOOOOO" + System.lineSeparator() +
+					 "OOOOOOO" + System.lineSeparator() +
+					 "OOOOOOO" + System.lineSeparator() +
+					 "OOOOOOO" + System.lineSeparator() +
+					 "OOOOOOO" + System.lineSeparator() +
+					 "OOOOOOO" + System.lineSeparator() +
+					 "1234567" + System.lineSeparator();
 		/**
 		*String representation 2 of expected output
 		*/
-		String expectedOutput2 = "@ is you, X is the other player, and * is empty." + System.lineSeparator() +
-				 " *  *  *  *  *  *  * " + System.lineSeparator() +
-				 " *  *  *  *  *  *  * " + System.lineSeparator() +
-				 " *  *  *  *  *  *  * " + System.lineSeparator() +
-				 " *  @  *  *  *  *  * " + System.lineSeparator() +
-				 " *  X  *  *  *  @  * " + System.lineSeparator() +
-				 " @  X  @  *  *  X  * " + System.lineSeparator() +
-				 "=====================" + System.lineSeparator() +
-				 " 1  2  3  4  5  6  7 " + System.lineSeparator();		 
+		String expectedOutput2 = "@ is you, X is the other player, and O is empty." + System.lineSeparator() +
+					 "OOOOOOO" + System.lineSeparator() +
+					 "OOOOOOO" + System.lineSeparator() +
+					 "OOOOOOO" + System.lineSeparator() +
+					 "O@OOOOO" + System.lineSeparator() +
+					 "OXOOO@O" + System.lineSeparator() +
+					 "@X@OOXO" + System.lineSeparator() +
+					 "1234567" + System.lineSeparator();
 		/**
 		*String representation 3 of expected output
 		*/
-		String expectedOutput3 = "@ is you, X is the other player, and * is empty." + System.lineSeparator() +
-				 " *  *  *  X  *  *  * " + System.lineSeparator() +
-				 " *  *  *  @  *  *  * " + System.lineSeparator() +
-				 " *  *  *  X  *  *  * " + System.lineSeparator() +
-				 " *  *  *  @  *  *  * " + System.lineSeparator() +
-				 " *  *  *  X  *  *  * " + System.lineSeparator() +
-				 " *  *  *  @  *  *  * " + System.lineSeparator() +
-				 "=====================" + System.lineSeparator() +
-				 " 1  2  3  4  5  6  7 " + System.lineSeparator();		 
+		String expectedOutput3 = "@ is you, X is the other player, and O is empty." + System.lineSeparator() +
+					 "OOOXOOO" + System.lineSeparator() +
+					 "OOO@OOO" + System.lineSeparator() +
+					 "OOOXOOO" + System.lineSeparator() +
+					 "OOO@OOO" + System.lineSeparator() +
+					 "OOOXOOO" + System.lineSeparator() +
+					 "OOO@OOO" + System.lineSeparator() +
+					 "1234567" + System.lineSeparator();
 		/**
 		*Setup board layout 1
 		*/

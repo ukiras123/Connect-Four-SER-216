@@ -5,7 +5,8 @@ import org.junit.Test;
 import connect.four.Game;
 import connect.four.board.*;
 import connect.four.player.*;
-
+import org.junit.Before;
+import org.junit.Test;
 
 public class TestGame {
 
@@ -13,7 +14,7 @@ public class TestGame {
 	public void testDetectWinner() {
 		
 		/**
-		*Initialize variable for how many chips must be in a row to win a game.
+		*Initialize variable for how many coins must be in a row to win a game.
 		*/
 		int inRow = 4;
 		
@@ -24,7 +25,7 @@ public class TestGame {
 		ConsolePlayer plyO = new ConsolePlayer("@");
 		
 		/**
-		*Setup board layout 1.
+		*Setup board layout 1 of the six board layouts.
 		* Diagonal Wins plyO
 		*/
 		Object[][] board1Layout = {{ plyO, null, null, null, null, null }, 
@@ -140,7 +141,7 @@ public class TestGame {
 		Board board6 = new Board(f);
 		
 		/**
-		*Test layouts with winners of different ways
+		*Test layouts with the winners
 		*/
 		assertEquals(plyO, Game.detectWinner(board1, inRow));
 		assertEquals(plyO, Game.detectWinner(board2, inRow));

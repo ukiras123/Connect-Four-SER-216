@@ -1,5 +1,6 @@
 package test;
 
+import static org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,8 +51,8 @@ public class BoardTest {
         /**
         *Creates two players to fill the board
         */
-        ConsolePlayer console = new ConsolePlayer("HumanPlayer");
-        ComputerPlayer computer = new ComputerPlayer();
+        console = createConsolePlayer();
+        computer = createComputerPlayer();
     }//end initializeTest
 
     @Test
@@ -85,7 +86,7 @@ public class BoardTest {
     @Test(expected = ColumnFullException.class)
     public void testFailedPlay() {
         /**
-        *Case 3, x=3  test full column
+        *Case 3, x=3
         */
         board.play(3, console);
         board.play(3, computer);
@@ -193,14 +194,14 @@ public class BoardTest {
         Assert.assertEquals("Must be an empty board.", 0, board.getMoveCount());
 
         /**
-        *Case 2 test an empty board after a round of playing
+        *Case 2
         */
-        ConsolePlayer console = new ConsolePlayer("HumanPlayer");
+        console = createConsolePlayer();
         board.play(0, computer);
-        board.play(0, console);
+        board.play(1, console);
         board.play(1, computer);
         board.play(4, console);
-        board.play(6, computer);
+        board.play(4, computer);
         board.play(6, console);
         board.play(5, computer);
         board.play(6, console);
@@ -211,12 +212,20 @@ public class BoardTest {
         Assert.assertEquals("Must be an empty board.", 0, board.getMoveCount());
 
         /**
-        *Case 3 test an empty board initially
+        *Case 3
         */
-        console = new ConsolePlayer("HumanPlayer");
-        computer = new ComputerPlayer();
+        console = createConsolePlayer();
+        computer = createComputerPlayer();
         board.clear();
         Assert.assertEquals("Must be an empty board.", 0, board.getMoveCount());
     }//end testClear
+
+    private ConsolePlayer createConsolePlayer() {
+        return new ConsolePlayer("HumanPlayer");
+    }//end createConsolePlayer
+
+    private ComputerPlayer createComputerPlayer() {
+        return new ComputerPlayer();
+    }//end createComputerPlayer
 
 }
