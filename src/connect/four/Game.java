@@ -9,7 +9,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-
+/**
+ * This is the class the handles most of the interconnections
+ * of all the other classes. It is responsible for performing
+ * plays and updating the boards. *
+ */
 public class Game implements ScoreChart {
     Player[] gamePlayers;
     int[] playerScores;
@@ -18,6 +22,12 @@ public class Game implements ScoreChart {
     int gameInRow;
     int gameCurrentPlayer;
     
+    /**
+     * This is the constructor for the game.
+     * @param players - The number of players that are going to play.
+     * @param board - A board to play the game.
+     * @param inRow - The number of chips that a player needs to line up to win.
+     */
     public Game(Player[] players, ReadWritableBoard board, int inRow) {
         gamePlayers = Arrays.copyOf(players, players.length);
         playerScores = new int[players.length];
@@ -25,19 +35,43 @@ public class Game implements ScoreChart {
         gameBoard = board;
         gameInRow = inRow;
     }
+    
+    /**
+     * This method determines which player starts first
+     * by using a random number generator.
+     */
     public void start() {
         int first = (new Random()).nextInt(gamePlayers.length);
         performPlay(first);
     }
+    
+    /**
+     * Adds the provided listener to the game's list of listener.
+     * @param toRegister - new listener to add to the game.
+     */
     @Override public void registerListener(ScoreChart.Listener toRegister) {
         listenersList.add(toRegister);
     }
+    
+    /**
+     * Removes the listener from the listener list.
+     * @param toUnregister - the listener to unregister.
+     */
     @Override public void unregisterListener(ScoreChart.Listener toUnregister) {
         listenersList.remove(toUnregister);
     }
+    
+    /**
+     * This method returns an Array List of players.
+     */
     @Override public List<Player> getPlayers() {
         return Arrays.asList(gamePlayers);
     }
+    
+    /**
+     * Returns the score of a player.
+     * @param player - the player that the user wants the score off
+     */
     @Override public int getScore(Player player) {
         int pos = -1;
         int lenght = gamePlayers.length;
@@ -48,6 +82,11 @@ public class Game implements ScoreChart {
         }
         return playerScores[pos];
     }
+    
+    /**
+     * This method creates a new board and performs plays according to players decisions.
+     * @param player
+     */
     void performPlay(final int player) {
         gameCurrentPlayer = player;
         ReadWritableBoard controlledBoard = new ReadWritableBoard() {
@@ -103,18 +142,37 @@ public class Game implements ScoreChart {
         gamePlayers[player].performPlay(controlledBoard);
     }
     
+    /**
+     * Returns the player currently playing
+     * @return the current player.
+     */
     public Player getCurrentPlayer(){
             return gamePlayers[gameCurrentPlayer];
     }
 
+    /**
+     * The number of chips that need to be lined up
+     * in order to win.
+     * @return Number of chips to win.
+     */
     public int getInRow() {
 	return gameInRow;
     }
 
+    /**
+     * The board that game is using to perform plays.
+     * @return The game board.
+     */
     public ReadableBoard getBoard() {
 	return gameBoard;
     }
 
+    /**
+     * This method detects if a player has won.
+     * @param board - the board to check on.
+     * @param inRow - the number of chips needed to win.
+     * @return a reference to the winning player.
+     */
     public static Player detectWinner(ReadableBoard board, int inRow) {
         int width = board.getWidth();
         int height = board.getHeight();
